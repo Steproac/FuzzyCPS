@@ -25,9 +25,10 @@ def main():
     title_html = "<h1 style='color: purple;'>Cost per Search (CPS) Calculator</h1>"
     st.markdown(title_html, unsafe_allow_html=True)
 
-st.write("""
-    by QD
+    st.write("""
+    by QD.
     """)
+
     st.write("""
     This app calculates the **Cost per Search (CPS)** based on your platform costs and API usage.
     """)
