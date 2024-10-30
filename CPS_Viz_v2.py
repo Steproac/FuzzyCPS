@@ -21,14 +21,12 @@ def compute_cps(P_i_list, C_i_list, A_i_list, N_s):
     return cps
 
 def main():
-    st.title("Fuzzy Cost per Search (CPS)")
+    # Change the title color to purple
+    title_html = "<h1 style='color: purple;'>Cost per Search (CPS) Calculator</h1>"
+    st.markdown(title_html, unsafe_allow_html=True)
 
     st.write("""
-    by QD
-    """)
-    
-    st.write("""
-    This app calculates the **Cost per Search (CPS)** based on the platform costs and API usage.
+    This app calculates the **Cost per Search (CPS)** based on your platform costs and API usage.
     """)
 
     # Sidebar Inputs
@@ -44,9 +42,9 @@ def main():
     # Option to show CPS over a range of N_s
     show_cps_range = st.sidebar.checkbox("Show CPS over a range of N_s", value=True)
     if show_cps_range:
-        N_s_min = st.sidebar.number_input("Minimum Number of Searchs (N_s)", value=1000, step=100)
-        N_s_max = st.sidebar.number_input("Maximum Number of Searchs (N_s)", value=10000, step=100)
-        N_s_step = st.sidebar.number_input("Number of Searchs (N_s) Step Size", value=500, step=100)
+        N_s_min = st.sidebar.number_input("Minimum N_s", value=1000, step=100)
+        N_s_max = st.sidebar.number_input("Maximum N_s", value=10000, step=100)
+        N_s_step = st.sidebar.number_input("N_s Step Size", value=500, step=100)
 
     # Input Platform Data
     st.header("Platform Costs and API Usage")
@@ -55,12 +53,20 @@ def main():
     Please enter the details for each platform below. You can add or remove platforms as needed.
     """)
 
-    # Default data for platforms
+    # Preloaded data for platforms
     default_data = {
-        'Platform Name': ['Platform 1', 'Platform 2'],
-        'Fixed Cost (P_i)': [1000.0, 1500.0],
-        'Cost per API Call (C_i)': [0.01, 0.02],
-        'API Calls per Search (A_i)': [10.0, 5.0]
+        'Platform Name': [
+            'Clarifai',
+            'SerpAPI',
+            'Supabase',
+            'Expo',
+            'AWS',
+            'People Data Labs',
+            'Endato'
+        ],
+        'Fixed Cost (P_i)': [30, 75, 25, 100, 1, 100, 0],
+        'Cost per API Call (C_i)': [0.0088, 0.02, 0, 0, 0, 0, 0.1],
+        'API Calls per Search (A_i)': [2, 2, 0, 0, 0, 1, 1]
     }
 
     # Editable DataFrame
@@ -127,7 +133,7 @@ def main():
                 # Combine the line chart and the point
                 combined_chart = (line_chart + point_chart).interactive()
 
-                st.subheader("CPS Over a Range of Number of Searchs (N_s")
+                st.subheader("CPS Over a Range of N_s")
                 st.altair_chart(combined_chart, use_container_width=True)
 
                 # Add labels to the chart
