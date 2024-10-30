@@ -22,7 +22,7 @@ def compute_cps(P_i_list, C_i_list, A_i_list, N_s):
 
 def main():
     # Change the title color to purple
-    title_html = "<h1 style='color: purple;'>Cost per Search (CPS) Calculator</h1>"
+    title_html = "<h1 style='color: purple;'>Fuzzy Cost per Search (CPS)</h1>"
     st.markdown(title_html, unsafe_allow_html=True)
 
     st.write("""
