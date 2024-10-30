@@ -40,11 +40,11 @@ def main():
     )
 
     # Option to show CPS over a range of N_s
-    show_cps_range = st.sidebar.checkbox("Show CPS over a range of N_s", value=True)
+    show_cps_range = st.sidebar.checkbox("Show CPS over a range of Number of Searches (N_s)", value=True)
     if show_cps_range:
-        N_s_min = st.sidebar.number_input("Minimum N_s", value=1000, step=100)
-        N_s_max = st.sidebar.number_input("Maximum N_s", value=10000, step=100)
-        N_s_step = st.sidebar.number_input("N_s Step Size", value=500, step=100)
+        N_s_min = st.sidebar.number_input("Minimum Number of Searches (N_s)", value=1000, step=100)
+        N_s_max = st.sidebar.number_input("Maximum Number of Searches (N_s)", value=10000, step=100)
+        N_s_step = st.sidebar.number_input("Number of Searches (N_s) Step Size", value=500, step=100)
 
     # Input Platform Data
     st.header("Platform Costs and API Usage")
@@ -133,7 +133,7 @@ def main():
                 # Combine the line chart and the point
                 combined_chart = (line_chart + point_chart).interactive()
 
-                st.subheader("CPS Over a Range of N_s")
+                st.subheader("CPS Over a Range of Number of Searches (N_s)")
                 st.altair_chart(combined_chart, use_container_width=True)
 
                 # Add labels to the chart
