@@ -25,12 +25,25 @@ def main():
     title_html = "<h1 style='color: purple;'>Fuzzy Cost per Search (CPS)</h1>"
     st.markdown(title_html, unsafe_allow_html=True)
 
-    st.write("""
-    by QD.
-    """)
+    st.write("by QD.")
 
     st.write("""
     This app calculates the **Cost per Search (CPS)** based on your platform costs and API usage.
+    """)
+
+    # Add the CPS equation
+    st.latex(r"""
+    \text{CPS} = \left( \frac{\sum_{i} P_i}{N_s} \right) + \left( \sum_{i} C_i \times A_i \right)
+    """)
+
+    # Add explanations of variables
+    st.write("""
+    **Variables:**
+
+    - \( P_i \): Fixed cost for platform *i*
+    - \( C_i \): Cost per API call for platform *i*
+    - \( A_i \): Number of API calls per search for platform *i*
+    - \( N_s \): Total number of searches
     """)
 
     # Sidebar Inputs
@@ -69,9 +82,9 @@ def main():
             'Endato',
             'LaunchDarkly'
         ],
-        'Fixed Cost (P_i)': [30, 75, 25, 100, 1, 100, 0,12],
-        'Cost per API Call (C_i)': [0.0088, 0.02, 0, 0, 0, 0, 0.1,0],
-        'API Calls per Search (A_i)': [2, 2, 0, 0, 0, 1, 1,0]
+        'Fixed Cost (P_i)': [30, 75, 25, 100, 1, 100, 0, 12],
+        'Cost per API Call (C_i)': [0.0088, 0.02, 0, 0, 0, 0, 0.1, 0],
+        'API Calls per Search (A_i)': [2, 2, 0, 0, 0, 1, 1, 0]
     }
 
     # Editable DataFrame
