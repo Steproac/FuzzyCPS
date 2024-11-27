@@ -79,12 +79,13 @@ def main():
             'Expo',
             'AWS',
             'People Data Labs',
-            'Endato',
+            'Endato (Teaser)',
+            'Endato (Full)',
             'LaunchDarkly'
         ],
-        'Fixed Cost (P_i)': [30, 75, 25, 100, 1, 100, 0, 12],
-        'Cost per API Call (C_i)': [0.0088, 0.02, 0, 0, 0, 0.25, 0.25, 0],
-        'API Calls per Search (A_i)': [2, 2, 0, 0, 0, 1, 1, 0]
+        'Fixed Cost (P_i)': [30, 75, 25, 100, 1, 100, 0, 0, 12],
+        'Cost per API Call (C_i)': [0.0088, 0.02, 0, 0, 0, 0.25, 0.25, 0.25, 0],
+        'API Calls per Search (A_i)': [2, 2, 0, 0, 0, 1, 1, 1, 0]
     }
 
     # Editable DataFrame
