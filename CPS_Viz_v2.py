@@ -66,7 +66,7 @@ def main():
     # Toggle for calculating monthly subscription fee
     monthly_toggle = st.sidebar.checkbox("Calculate Monthly Subscription Fee based on Profit Margin", value=False)
     if monthly_toggle:
-        N_s_month = st.sidebar.number_input("Average Monthly Searches per Subscriber:", value=1000, step=10)
+        N_s_month = st.sidebar.number_input("Average Monthly Searches per Subscriber:", value=100, step=10)
         M_percent = st.sidebar.slider("Desired Profit Margin (%):", min_value=0, max_value=100, value=20)
         M = M_percent / 100.0  # Convert percentage to decimal
     else:
