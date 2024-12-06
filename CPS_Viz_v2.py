@@ -38,7 +38,7 @@ def main():
 
     # Add explanations of variables
     st.write("""
-    **Variables:**
+    **Where:**
 
     - \( P_i \): Fixed cost for platform *i*
     - \( C_i \): Cost per API call for platform *i*
@@ -63,6 +63,15 @@ def main():
         N_s_max = st.sidebar.number_input("Maximum Number of Searches (N_s)", value=10000, step=100)
         N_s_step = st.sidebar.number_input("Number of Searches (N_s) Step Size", value=500, step=100)
 
+    # Toggle for calculating monthly subscription fee
+    monthly_toggle = st.sidebar.checkbox("Calculate Monthly Subscription Fee based on Profit Margin", value=False)
+    if monthly_toggle:
+        N_s_month = st.sidebar.number_input("Average Monthly Searches per Subscriber:", value=1000, step=50)
+        M_percent = st.sidebar.slider("Desired Profit Margin (%):", min_value=0, max_value=100, value=20)
+        M = M_percent / 100.0  # Convert percentage to decimal
+    else:
+        N_s_month, M = None, None
+
     # Input Platform Data
     st.header("Platform Costs and API Usage")
 
@@ -79,7 +88,7 @@ def main():
             'Expo',
             'AWS',
             'People Data Labs',
-            'Endato (Teaser)',
+            'Endato (Tester)',
             'Endato (Full)',
             'LaunchDarkly'
         ],
@@ -123,11 +132,22 @@ def main():
         """
         st.markdown(cps_html, unsafe_allow_html=True)
 
-        # Show CPS over a range of N_s with marker
+        # If monthly fee calculation is toggled on
+        if monthly_toggle and N_s_month is not None and M is not None:
+            # Compute Monthly Subscription Fee
+            # Monthly Fee = (N_s_month * CPS) / (1 - M)
+            monthly_fee = (N_s_month * cps) / (1 - M)
+            st.subheader("Recommended Monthly Subscription Fee:")
+            monthly_fee_html = f"""
+            <p style='color: purple; font-size: 28px; font-weight: bold;'>${monthly_fee:.2f}</p>
+            """
+            st.markdown(monthly_fee_html, unsafe_allow_html=True)
+
+        # Show CPS over a range of N_s with marker if enabled
         if show_cps_range:
             if N_s_min < N_s_max and N_s_step > 0:
                 N_s_values = list(range(int(N_s_min), int(N_s_max) + 1, int(N_s_step)))
-                cps_values = [compute_cps(P_i_list, C_i_list, A_i_list, N_s_val) for N_s_val in N_s_values]
+                cps_values = [compute_cps(P_i_list, C_i_list, A_i_list, val) for val in N_s_values]
                 plot_data = pd.DataFrame({'Total Searches (N_s)': N_s_values, 'CPS ($)': cps_values})
 
                 # Create Altair chart
@@ -164,6 +184,7 @@ def main():
                 """)
             else:
                 st.error("Please ensure that Minimum N_s < Maximum N_s and N_s Step Size > 0.")
+
     except Exception as e:
         st.error(f"An error occurred during calculation: {e}")
 
